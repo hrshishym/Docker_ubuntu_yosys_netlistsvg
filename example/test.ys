@@ -1,0 +1,12 @@
+read_verilog test.v
+read_liberty -lib cells.lib
+
+synth -top TOP
+
+dfflibmap -liberty cells.lib
+abc -D 10000 -constr test.sdc -liberty cells.lib
+opt_clean
+
+stat -liberty cells.lib
+
+write_json test.json
